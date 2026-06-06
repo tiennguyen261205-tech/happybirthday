@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday My Love 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Satisfy&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --r:#e85d8a;--p:#f4a7c0;--soft:#fde8f0;
+  --lav:#c9a8e8;--gold:#f7c873;--cream:#fff5f8;
+  --dark:#fff0f5;--mid:#f9d5e5;
+}
+html{scroll-behavior:smooth;scroll-snap-type:y mandatory}
+body{background:var(--cream);font-family:'Nunito',sans-serif;overflow-x:hidden;cursor:none;color:#5a2040}
+ 
+/* CURSOR */
+#cur{width:12px;height:12px;background:var(--r);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;mix-blend-mode:screen;transition:transform .1s}
+#cur2{width:30px;height:30px;border:1.5px solid var(--p);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transition:all .25s ease;opacity:.6}
+ 
+/* MUSIC BAR */
+#music-bar{
+  position:fixed;top:20px;right:20px;z-index:1000;
+  display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.8);backdrop-filter:blur(14px);box-shadow:0 4px 20px rgba(232,93,138,.12);
+  border:1px solid rgba(232,93,138,.25);border-radius:40px;
+  padding:10px 18px;cursor:pointer;transition:all .3s;
+}
+#music-bar:hover{background:rgba(255,255,255,.98);transform:scale(1.04)}
+.music-waves{display:flex;align-items:flex-end;gap:3px;height:18px}
+.music-waves span{
+  display:block;width:3px;background:var(--p);border-radius:2px;
+  animation:wave .7s ease-in-out infinite alternate;
+}
+.music-waves span:nth-child(1){height:6px;animation-delay:0s}
+.music-waves span:nth-child(2){height:14px;animation-delay:.1s}
+.music-waves span:nth-child(3){height:10px;animation-delay:.2s}
+.music-waves span:nth-child(4){height:16px;animation-delay:.05s}
+.music-waves span:nth-child(5){height:8px;animation-delay:.15s}
+.music-waves.paused span{animation-play-state:paused;height:4px!important}
+@keyframes wave{0%{transform:scaleY(.4)}100%{transform:scaleY(1)}}
+#music-label{font-size:.75rem;color:#c0386a;letter-spacing:.05em;user-select:none}
+ 
+/* STAR CANVAS */
+#star-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+ 
+/* SECTIONS */
+section{
+  position:relative;z-index:1;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:80px 24px;scroll-snap-align:start;overflow:hidden;
+}
+ 
+/* ═══ HERO ═══ */
+#hero{background:linear-gradient(160deg,#fff0f6 0%,#fce4ef 40%,#f5e6ff 100%)}
+.hero-glow{
+  position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,93,138,.1) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  animation:pulse 4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.15)}}
+ 
+.hero-date{
+  font-family:'Nunito',sans-serif;font-size:.8rem;letter-spacing:.35em;
+  color:var(--lav);text-transform:uppercase;opacity:0;
+  animation:fadeUp .8s .3s ease forwards;margin-bottom:20px;
+}
+.hero-h1{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,10vw,7rem);
+  font-weight:300;line-height:1;color:#c0386a;text-align:center;
+  opacity:0;animation:fadeUp .9s .5s ease forwards;margin-bottom:8px;
+}
+.hero-h1 em{font-style:italic;color:var(--r)}
+.hero-name{
+  font-family:'Satisfy',cursive;font-size:clamp(2rem,7vw,4.5rem);
+  color:#d4820a;text-shadow:0 0 40px rgba(247,200,115,.5);
+  opacity:0;animation:fadeUp .9s .8s ease forwards;margin-bottom:28px;
+  display:block;text-align:center;
+}
+.hero-sub{
+  font-size:1rem;color:#b06080;max-width:400px;text-align:center;
+  line-height:1.9;opacity:0;animation:fadeUp .8s 1s ease forwards;
+}
+.scroll-cue{
+  position:absolute;bottom:36px;display:flex;flex-direction:column;align-items:center;gap:6px;
+  opacity:0;animation:fadeUp .8s 1.4s ease forwards;
+}
+.scroll-cue span{font-size:.7rem;letter-spacing:.3em;color:rgba(180,80,120,.4);text-transform:uppercase}
+.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--p),transparent);animation:lineGrow 1.5s ease-in-out infinite}
+@keyframes lineGrow{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}from{opacity:0;transform:translateY(28px)}}
+ 
+/* ═══ CAKE SCENE ═══ */
+#cake-sec{
+  background:linear-gradient(180deg,#fff5f9 0%,#fce8f3 50%,#f5e0f5 100%);
+  gap:32px;
+}
+.cake-title{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,5vw,2.8rem);
+  font-weight:300;color:#c0386a;text-align:center;
+  opacity:0;transition:opacity .8s,transform .8s;transform:translateY(24px);
+}
+.cake-title.visible{opacity:1;transform:none}
+.cake-title em{font-style:italic;color:var(--r)}
+ 
+/* 3-layer cake SVG wrapper */
+.cake-wrap{position:relative;display:flex;justify-content:center}
+.cake-svg{width:min(360px,85vw);filter:drop-shadow(0 20px 60px rgba(255,61,110,.4))}
+.flame{animation:flicker .65s ease-in-out infinite alternate;transform-origin:50% 100%}
+@keyframes flicker{0%{transform:scaleX(1) scaleY(1) rotate(-4deg);opacity:1}100%{transform:scaleX(.75) scaleY(1.3) rotate(4deg);opacity:.8}}
+.glow-ring{
+  position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);
+  width:200px;height:30px;
+  background:radial-gradient(ellipse,rgba(255,107,157,.5) 0%,transparent 70%);
+  animation:pulse 2s ease-in-out infinite;
+}
+ 
+.blow-btn{
+  background:transparent;border:1.5px solid var(--p);color:var(--p);
+  border-radius:50px;padding:14px 44px;
+  font-family:'Nunito',sans-serif;font-size:1rem;letter-spacing:.1em;
+  cursor:pointer;transition:all .3s;position:relative;overflow:hidden;
+}
+.blow-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--r),var(--p));
+  opacity:0;transition:opacity .3s;z-index:-1;border-radius:inherit;
+}
+.blow-btn:hover{color:#fff;border-color:transparent;transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,61,110,.4)}
+.blow-btn:hover::before{opacity:1}
+.blow-note{font-size:.85rem;color:#c080a0;text-align:center;max-width:360px}
+ 
+/* confetti canvas */
+#conf-canvas{position:fixed;inset:0;pointer-events:none;z-index:200}
+ 
+/* ═══ REASONS ═══ */
+#reasons{
+  background:linear-gradient(160deg,#fce4ef 0%,#f0e4fc 100%);
+  gap:0;
+}
+.sec-header{text-align:center;margin-bottom:56px}
+.sec-eyebrow{
+  font-size:.75rem;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--lav);display:block;margin-bottom:12px;
+}
+.sec-title{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,6vw,3.5rem);
+  font-weight:300;color:#c0386a;
+}
+.sec-title em{color:var(--r);font-style:italic}
+ 
+.reasons-list{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:16px;max-width:900px;width:100%;
+}
+.reason-card{
+  background:rgba(255,255,255,.7);border:1px solid rgba(232,93,138,.18);
+  border-radius:16px;padding:28px 24px;
+  display:flex;gap:16px;align-items:flex-start;
+  transition:all .35s;cursor:default;
+  opacity:0;transform:translateY(20px);
+  box-shadow:0 4px 20px rgba(232,93,138,.07);
+}
+.reason-card.visible{opacity:1;transform:none}
+.reason-card:hover{background:rgba(255,255,255,.95);border-color:rgba(232,93,138,.35);transform:translateY(-4px);box-shadow:0 12px 32px rgba(232,93,138,.15)}
+.reason-num{
+  font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-style:italic;
+  color:rgba(232,93,138,.22);line-height:1;flex-shrink:0;width:36px;
+}
+.reason-text{font-size:.95rem;color:#8a4060;line-height:1.7;padding-top:6px}
+.reason-text strong{color:#c0386a;font-weight:600;display:block;margin-bottom:4px}
+ 
+/* ═══ WISHLIST ═══ */
+#memories{
+  background:linear-gradient(160deg,#f5e8ff 0%,#ffe8f4 100%);
+}
+.wish-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;max-width:860px;width:100%;
+}
+.wish-card{
+  background:rgba(255,255,255,.75);border:1px solid rgba(232,93,138,.18);
+  border-radius:20px;padding:32px 22px 28px;text-align:center;
+  opacity:0;transform:translateY(24px);
+  transition:all .5s ease;cursor:default;position:relative;overflow:hidden;
+  box-shadow:0 4px 18px rgba(232,93,138,.08);
+}
+.wish-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(232,93,138,.07),rgba(201,168,232,.07));
+  opacity:0;transition:opacity .3s;
+}
+.wish-card:hover::before{opacity:1}
+.wish-card:hover{transform:translateY(-6px)!important;border-color:rgba(232,93,138,.35);box-shadow:0 16px 40px rgba(232,93,138,.15)}
+.wish-card.visible{opacity:1;transform:translateY(0)}
+.wish-icon{font-size:2.6rem;display:block;margin-bottom:14px;line-height:1}
+.wish-title{
+  font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;
+  color:#c0386a;margin-bottom:8px;
+}
+.wish-desc{font-size:.85rem;color:#b07090;line-height:1.7}
+.wish-check{
+  position:absolute;top:14px;right:16px;
+  width:22px;height:22px;border-radius:50%;
+  border:1.5px solid rgba(232,93,138,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;color:rgba(232,93,138,.4);
+  transition:all .3s;cursor:pointer;
+}
+.wish-card:hover .wish-check{border-color:var(--r);color:var(--r)}
+.wish-check.done{background:var(--r);border-color:var(--r);color:#fff}
+ 
+/* ═══ LETTER ═══ */
+#letter-sec{
+  background:linear-gradient(180deg,#fff0f6 0%,#f8e8ff 100%);
+}
+.letter-wrap{
+  max-width:580px;width:100%;
+  background:linear-gradient(160deg,#fffef9,#fff8f0);
+  border-radius:2px;
+  padding:56px 52px;
+  box-shadow:0 4px 6px rgba(0,0,0,.07),0 30px 80px rgba(255,61,110,.2),inset 4px 0 0 #ffb3c6;
+  position:relative;
+  opacity:0;transform:translateY(32px);transition:all .9s ease;
+}
+.letter-wrap.visible{opacity:1;transform:none}
+.letter-wrap::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(transparent,transparent 31px,rgba(0,100,200,.06) 31px,rgba(0,100,200,.06) 32px);
+  border-radius:inherit;
+}
+.letter-date{
+  font-family:'Satisfy',cursive;font-size:1rem;color:var(--p);
+  text-align:right;margin-bottom:28px;position:relative;z-index:1;
+}
+.letter-body{
+  font-family:'Nunito',sans-serif;font-size:1.05rem;line-height:2;
+  color:#3a1020;position:relative;z-index:1;
+}
+.letter-body p+p{margin-top:16px}
+.letter-body .highlight{color:var(--r);font-weight:600}
+.letter-sign{
+  margin-top:36px;text-align:right;
+  font-family:'Satisfy',cursive;font-size:1.6rem;color:var(--r);
+  position:relative;z-index:1;
+}
+ 
+/* ═══ FINALE ═══ */
+#finale{
+  background:linear-gradient(160deg,#fce4ef 0%,#ede4fc 100%);
+  min-height:70vh;
+}
+#fw-canvas{position:absolute;inset:0;width:100%;height:100%}
+.finale-inner{position:relative;z-index:2;text-align:center}
+.finale-h{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,9vw,6rem);
+  font-weight:300;color:#c0386a;
+  text-shadow:0 0 60px rgba(232,93,138,.25);
+  opacity:0;transform:scale(.9);transition:all 1s ease;
+}
+.finale-h.visible{opacity:1;transform:scale(1)}
+.finale-h em{font-style:italic;color:var(--r)}
+.finale-sub{
+  font-family:'Satisfy',cursive;font-size:clamp(1.2rem,3.5vw,2rem);
+  color:#c080a0;margin-top:16px;
+  opacity:0;transition:all 1s ease .3s;
+}
+.finale-sub.visible{opacity:1}
+.hearts-burst{font-size:2rem;letter-spacing:8px;margin-top:24px;opacity:0;transition:all 1s ease .6s}
+.hearts-burst.visible{opacity:1}
+ 
+/* FLOATING PARTICLES */
+.particle{
+  position:fixed;pointer-events:none;border-radius:50%;z-index:0;
+  animation:drift linear infinite;
+}
+@keyframes drift{
+  0%{transform:translateY(100vh) rotate(0) scale(0);opacity:0}
+  5%{opacity:.5}
+  95%{opacity:.3}
+  100%{transform:translateY(-10vh) rotate(720deg) scale(.3);opacity:0}
+}
+</style>
+</head>
+<body>
+ 
+<div id="cur"></div>
+<div id="cur2"></div>
+<canvas id="star-canvas"></canvas>
+<canvas id="conf-canvas"></canvas>
+ 
+<!-- MUSIC BAR -->
+<div id="music-bar" onclick="toggleMusic()">
+  <div class="music-waves" id="mwaves">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <span id="music-label">Ôm Trọn Thương Yêu</span>
+</div>
+ 
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <p class="hero-date">✦ Một ngày thật đặc biệt ✦</p>
+  <h1 class="hero-h1">Happy <em>Birthday</em></h1>
+  <span class="hero-name">Anh iu của elm~</span>
+  <p class="hero-sub">Hôm nay là ngày anh được sinh ra — và thế giới này trở nên đẹp hơn rất nhiều kể từ ngày đó 🌹</p>
+  <div class="scroll-cue">
+    <span>Cuộn xuống</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+ 
+<!-- ═══ CAKE ═══ -->
+<section id="cake-sec">
+  <h2 class="cake-title reveal">Thổi nến & <em>ước điều thầm kín</em></h2>
+  <div class="cake-wrap">
+    <svg class="cake-svg" viewBox="0 0 380 320" xmlns="http://www.w3.org/2000/svg">
+      <!-- plate shadow -->
+      <ellipse cx="190" cy="308" rx="160" ry="12" fill="#ff80ab" opacity=".15"/>
+      <!-- bottom tier -->
+      <rect x="30" y="220" width="320" height="85" rx="14" fill="#c2185b"/>
+      <rect x="30" y="220" width="320" height="22" rx="6" fill="#ad1457"/>
+      <!-- bottom frosting -->
+      <path d="M30 233 Q60 252 90 233 Q120 252 150 233 Q180 252 210 233 Q240 252 270 233 Q300 252 330 233 Q350 252 350 233" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" opacity=".85"/>
+      <!-- bottom decoration dots -->
+      <circle cx="75" cy="265" r="7" fill="#f48fb1" opacity=".7"/>
+      <circle cx="145" cy="272" r="5" fill="#fff" opacity=".5"/>
+      <circle cx="215" cy="263" r="8" fill="#f48fb1" opacity=".6"/>
+      <circle cx="290" cy="270" r="5" fill="#fff" opacity=".5"/>
+      <circle cx="330" cy="262" r="6" fill="#f48fb1" opacity=".65"/>
+      <!-- mid tier -->
+      <rect x="70" y="148" width="240" height="74" rx="14" fill="#e91e8c"/>
+      <rect x="70" y="148" width="240" height="20" rx="6" fill="#d81b7a"/>
+      <path d="M70 162 Q100 178 130 162 Q160 178 190 162 Q220 178 250 162 Q280 178 310 162" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" opacity=".8"/>
+      <!-- mid decoration -->
+      <text x="130" y="200" font-size="18" fill="#fff" opacity=".6">✿</text>
+      <text x="195" y="196" font-size="14" fill="#fff" opacity=".5">♥</text>
+      <text x="255" y="200" font-size="18" fill="#fff" opacity=".6">✿</text>
+      <!-- top tier -->
+      <rect x="110" y="86" width="160" height="64" rx="14" fill="#f06292"/>
+      <rect x="110" y="86" width="160" height="17" rx="6" fill="#e91e8c"/>
+      <path d="M110 99 Q130 114 150 99 Q170 114 190 99 Q210 114 230 99 Q250 114 270 99" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" opacity=".8"/>
+      <!-- heart on top -->
+      <text x="175" y="130" font-size="22" text-anchor="middle" fill="#fff" opacity=".9">♥</text>
+      <!-- candles -->
+      <rect x="148" y="50" width="11" height="38" rx="3" fill="#fff176"/>
+      <rect x="170" y="42" width="11" height="46" rx="3" fill="#80cbc4"/>
+      <rect x="192" y="48" width="11" height="40" rx="3" fill="#ff80ab"/>
+      <rect x="215" y="44" width="11" height="44" rx="3" fill="#ce93d8"/>
+      <!-- candle stripes -->
+      <rect x="148" y="58" width="11" height="4" rx="1" fill="rgba(0,0,0,.12)"/>
+      <rect x="170" y="56" width="11" height="4" rx="1" fill="rgba(0,0,0,.12)"/>
+      <rect x="192" y="56" width="11" height="4" rx="1" fill="rgba(0,0,0,.12)"/>
+      <rect x="215" y="54" width="11" height="4" rx="1" fill="rgba(0,0,0,.12)"/>
+      <!-- flames -->
+      <g id="flames">
+        <ellipse class="flame" cx="153.5" cy="45" rx="5.5" ry="9" fill="#ffab00"/>
+        <ellipse class="flame" cx="175.5" cy="36" rx="5.5" ry="9" fill="#ff6d00" style="animation-delay:.15s"/>
+        <ellipse class="flame" cx="197.5" cy="42" rx="5.5" ry="9" fill="#ff4081" style="animation-delay:.3s"/>
+        <ellipse class="flame" cx="220.5" cy="38" rx="5.5" ry="9" fill="#e040fb" style="animation-delay:.1s"/>
+        <!-- inner flame -->
+        <ellipse class="flame" cx="153.5" cy="46" rx="3" ry="5.5" fill="#fff9c4" opacity=".9"/>
+        <ellipse class="flame" cx="175.5" cy="37" rx="3" ry="5.5" fill="#fff9c4" opacity=".9" style="animation-delay:.15s"/>
+        <ellipse class="flame" cx="197.5" cy="43" rx="3" ry="5.5" fill="#fff9c4" opacity=".9" style="animation-delay:.3s"/>
+        <ellipse class="flame" cx="220.5" cy="39" rx="3" ry="5.5" fill="#fff9c4" opacity=".9" style="animation-delay:.1s"/>
+      </g>
+    </svg>
+    <div class="glow-ring"></div>
+  </div>
+  <button class="blow-btn" onclick="blowCandles()">🌬️ &nbsp;Thổi nến đi!</button>
+  <p class="blow-note">Nhắm mắt lại, nghĩ một điều ước rồi nhấn nào~</p>
+</section>
+ 
+<!-- ═══ REASONS ═══ -->
+ <section id="reasons"> <div class="sec-header"> <span class="sec-eyebrow">✦ dành riêng cho anh ✦</span> <h2 class="sec-title">Lý do em <anh>yêu anh</anh></h2> </div> <div class="reasons-list"> <div class="reason-card reveal"><span class="reason-num">01</span><div class="reason-text"><strong>Nụ cười của anh</strong> Mỗi lần anh cười nhìn anh ấm áp lắm, mong anh sẽ luôn cười như thế nhé. Cái đồ đáng iu!!! </div></div> <div class="reason-card reveal" style="transition-delay:.1s"><span class="reason-num">02</span><div class="reason-text"><strong>Sự chân thành</strong> Lần này em mong rằng sự chân thành của cả hai sẽ mang đến con đường lâu dàiiiii nhéee</div></div> <div class="reason-card reveal" style="transition-delay:.2s"><span class="reason-num">03</span><div class="reason-text"><strong>Sự quan tâm</strong>Em không mong gì nhìu mong anh vẫn tiếp tục quan tâm em. Em biết rằng anh bé rất bận nhưng mỗi lần anh quan tâm đến em, em thấy thật sự rất an toàn</div></div> <div class="reason-card reveal" style="transition-delay:.3s"><span class="reason-num">04</span><div class="reason-text"><strong>Sự kiên nhẫn của anh</strong>Anh chịu đựng em mỗi khi em khó chịu nhưng anh chưa bao giờ trách em cảaaa</div></div> <div class="reason-card reveal" style="transition-delay:.4s"><span class="reason-num">05</span><div class="reason-text"><strong>Đôi mắt của anh</strong>Đây là thứ mà em chưa dám nhìn thẳng vào, cũng không biết nữa. Chắc do yêu anhh nhìuuuuu áaaa! </div></div> <div class="reason-card reveal" style="transition-delay:.5s"><span class="reason-num">06</span><div class="reason-text"><strong>Anh là anh </strong>Chỉ cần là anh thì em thấy thế giới ni thật dễ thương moah moah</div></div> </div> </section>
+<!-- ═══ WISHLIST ═══ -->
+<section id="memories">
+  <div class="sec-header">
+    <span class="sec-eyebrow">✦ cùng nhau nhé ✦</span>
+    <h2 class="sec-title">Những điều em muốn <anh>làm cùng anh</anh></h2>
+  </div>
+  <div class="wish-grid">
+    <div class="wish-card reveal" style="transition-delay:.0s">
+      <div class="wish-check" onclick="toggleCheck(this)">✓</div>
+      <span class="wish-icon">🌃</span>
+      <p class="wish-title">Đi dạo đêm cùng nhau</p>
+      <p class="wish-desc">Em đi dạo đêm với bạn bè em rất nhiều, nhưng em vẫn mong em sẽ được đi dạo đêm cùng anh 1 lần</p>
+    </div>
+    <div class="wish-card reveal" style="transition-delay:.1s">
+      <div class="wish-check" onclick="toggleCheck(this)">✓</div> 
+       <span class="wish-icon">🏍️</span>
+      <p class="wish-title">Ngồi đằng sau anh và anh lai em đi chơi</p>
+      <p class="wish-desc">Cũng khá lâu em hong được đi chơi với anh nên em nghĩ nếu được đi chơi riêng với anh sẽ vui lắm đây</p>
+    </div>
+    <div class="wish-card reveal" style="transition-delay:.2s">
+      <div class="wish-check" onclick="toggleCheck(this)">✓</div>
+      <span class="wish-icon">🎬</span>
+      <p class="wish-title">Đi xem phim</p>
+      <p class="wish-desc">Có thể đây sẽ là phương án tốt nhất cho việc đi chơi khi trời quá nóng đó anh</p>
+    </div>
+    <div class="wish-card reveal" style="transition-delay:.3s">
+      <div class="wish-check" onclick="toggleCheck(this)">✓</div>
+      <span class="wish-icon">🌊</span>
+      <p class="wish-title">Một chuyến đi biển</p>
+      <p class="wish-desc">Thật ra em là nàng tiên cá, em đổi đôi chân để lên bờ iu anh đó cục xanh. Tóm lại là em iu anh như iu bỉn</p>
+    </div>
+    <div class="wish-card reveal" style="transition-delay:.4s">
+      <div class="wish-check" onclick="toggleCheck(this)">✓</div>
+      <span class="wish-icon">💌</span>
+      <p class="wish-title">Tâm sự nhiều hơn</p>
+      <p class="wish-desc">Em mún chúng ta tâm sự nhiều hơn và học hỏi được từ nhau nhìu hơn</p>
+    </div>
+    <div class="wish-card reveal" style="transition-delay:.5s">
+      <div class="wish-check" onclick="toggleCheck(this)">✓</div>
+      <span class="wish-icon">🌄</span>
+      <p class="wish-title">Mún được đi ăn sáng với anh</p>
+      <p class="wish-desc">Đây có thể là động lực cho em dậy sớm mỗi sáng đó</p>
+    </div>
+    <div class="wish-card reveal" style="transition-delay:.5s">
+      <div class="wish-check" onclick="toggleCheck(this)">✓</div>
+      <span class="wish-icon">🌷</span>
+      <p class="wish-title">Phần này thì anh có thể đề xuất thêm với em nha</p>
+      <p class="wish-desc">Đây là mong muốn của em và anh( nếu anh có đề xuất)</p>
+    </div>
+  </div>
+</section>
+
+ 
+<!-- ═══ LETTER ═══ -->
+<section id="letter-sec">
+  <div class="sec-header">
+    <span class="sec-eyebrow" style="color:var(--lav)">✦ từ trái tim ✦</span>
+    <h2 class="sec-title">Thư gửi <em>anh yêu</em></h2>
+  </div>
+  <div class="letter-wrap reveal">
+    <p class="letter-date">Ngày anh thêm một tuổi 🌹</p>
+    <div class="letter-body">
+      <p>Anh bé ơi,</p>
+      <p>Mai là sinh nhật của anh, em xin phép chúc sớm xíu. Thật sự thì sinh nhật anh, em không biết tặng anh cái chi cả.Nhưng một chút tấm lòng nì của em. Em mong anh sẽ đón nhận. Có thể bản code ni không phải là độc quyền nhưng những dòng nhắn trên đây đều là từ tình yêu của em</p>
+      <p>Em rất là hạnh phúc khi quen anh mặc dù chúng ta chỉ có thể thấy nhau qua màn hình nhỏ. Không còn gì hơn!!</p>
+      <p><span class="highlight">Sinh nhật anh, em chúc anh sẽ luôn mạnh khỏe, vui vẻ và thành công trong các dự định, công việc của anh.</span></p>
+      <p>Và em mong rằng anh sẽ cùng em gìn giữ mối quan hệ này thật tốt, sau có nhìn lại chặng đường này thì cũng không còn điều gì tiếc nuối nữa</p>
+    </div>
+    <div class="letter-sign">Yêu anh nhiều,<br>Ctindayruiii 💕</div>
+  </div>
+</section>
+ 
+<!-- ═══ FINALE ═══ -->
+<section id="finale">
+  <canvas id="fw-canvas"></canvas>
+  <div class="finale-inner">
+    <h2 class="finale-h reveal">🎆 Happy <em>Birthday!</em> 🎆</h2>
+    <p class="finale-sub reveal">Tuổi mới — hạnh phúc — tình yêu mãi mãi</p>
+    <p class="hearts-burst reveal">💖 💗 💝 💓 💞</p>
+  </div>
+</section>
+ 
+<script>
+/* ══ CURSOR ══ */
+const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
+let mx=0,my=0,tx=0,ty=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.cssText=`left:${mx-6}px;top:${my-6}px`;
+});
+setInterval(()=>{
+  tx+=(mx-tx)*.14;ty+=(my-ty)*.14;
+  cur2.style.cssText=`left:${tx-15}px;top:${ty-15}px`;
+},16);
+document.addEventListener('click',e=>spawnSparkles(e.clientX,e.clientY));
+ 
+function spawnSparkles(x,y){
+  const em=['💖','✨','🌸','💫','⭐','🌟','🌷','💕','🎀'];
+  for(let i=0;i<6;i++){
+    const s=document.createElement('div');
+    s.style.cssText=`position:fixed;left:${x}px;top:${y}px;font-size:${.9+Math.random()*.8}rem;pointer-events:none;z-index:9999;transition:all .8s ease;will-change:transform,opacity`;
+    s.textContent=em[Math.floor(Math.random()*em.length)];
+    document.body.appendChild(s);
+    const dx=(Math.random()-.5)*130,dy=-(40+Math.random()*90);
+    requestAnimationFrame(()=>{requestAnimationFrame(()=>{
+      s.style.transform=`translate(${dx}px,${dy}px) scale(0)`;
+      s.style.opacity='0';
+    })});
+    setTimeout(()=>s.remove(),900);
+  }
+}
+ 
+/* ══ STAR CANVAS ══ */
+const sc=document.getElementById('star-canvas');
+const sctx=sc.getContext('2d');
+function resizeSC(){sc.width=window.innerWidth;sc.height=window.innerHeight}
+window.addEventListener('resize',resizeSC);resizeSC();
+const stars=Array.from({length:160},()=>({x:Math.random()*sc.width,y:Math.random()*sc.height,r:.3+Math.random()*1.4,a:Math.random(),da:.003+Math.random()*.012}));
+function animStars(){
+  sctx.clearRect(0,0,sc.width,sc.height);
+  stars.forEach(s=>{
+    s.a+=s.da;if(s.a>1||s.a<0)s.da*=-1;
+    sctx.beginPath();sctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    sctx.fillStyle=`rgba(255,255,255,${s.a*.8})`;sctx.fill();
+  });
+  requestAnimationFrame(animStars);
+}
+animStars();
+ 
+/* ══ FLOATING PARTICLES ══ */
+['#ff85a1','#d4a8ff','#ffd700','#80cbc4'].forEach((c,i)=>{
+  for(let j=0;j<6;j++){
+    const p=document.createElement('div');
+    const size=3+Math.random()*5;
+    p.className='particle';
+    p.style.cssText=`width:${size}px;height:${size}px;background:${c};left:${Math.random()*100}%;animation-duration:${12+Math.random()*18}s;animation-delay:${Math.random()*15}s;opacity:.4`;
+    document.body.appendChild(p);
+  }
+});
+ 
+/* ══ SCROLL REVEAL ══ */
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.15});
+document.querySelectorAll('.reveal,.cake-title,.letter-wrap,.finale-h,.finale-sub,.hearts-burst').forEach(el=>revObs.observe(el));
+ 
+/* ══ CONFETTI ══ */
+const cc=document.getElementById('conf-canvas');
+const cctx=cc.getContext('2d');
+function resizeCC(){cc.width=window.innerWidth;cc.height=window.innerHeight}
+window.addEventListener('resize',resizeCC);resizeCC();
+let cparts=[];
+ 
+function blowCandles(){
+  document.getElementById('flames').style.display='none';
+  // pop confetti
+  const cols=['#ff6b9d','#ff3d6e','#ffd700','#c084fc','#80cbc4','#fff176','#ff80ab','#80deea'];
+  cparts=[];
+  for(let i=0;i<220;i++){
+    cparts.push({
+      x:Math.random()*cc.width,y:-10,
+      vx:(Math.random()-.5)*7,vy:1.5+Math.random()*5,
+      r:3+Math.random()*7,col:cols[Math.floor(Math.random()*cols.length)],
+      rot:Math.random()*360,vr:(Math.random()-.5)*10,
+      shape:Math.random()>.5?'r':'c',alpha:1
+    });
+  }
+  animConf();
+  // trigger music if not playing
+  if(!musicPlaying)startMusic();
+}
+function animConf(){
+  cctx.clearRect(0,0,cc.width,cc.height);
+  let any=false;
+  cparts.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;p.vy+=.1;p.rot+=p.vr;
+    if(p.y>cc.height*.85)p.alpha-=.025;
+    if(p.alpha>0)any=true;
+    cctx.save();cctx.globalAlpha=Math.max(0,p.alpha);
+    cctx.translate(p.x,p.y);cctx.rotate(p.rot*Math.PI/180);
+    cctx.fillStyle=p.col;
+    if(p.shape==='r')cctx.fillRect(-p.r*.5,-p.r*.25,p.r,p.r*.5);
+    else{cctx.beginPath();cctx.arc(0,0,p.r*.5,0,Math.PI*2);cctx.fill();}
+    cctx.restore();
+  });
+  if(any)requestAnimationFrame(animConf);
+  else cctx.clearRect(0,0,cc.width,cc.height);
+}
+ 
+/* ══ FIREWORKS ══ */
+const fw=document.getElementById('fw-canvas');
+const fwc=fw.getContext('2d');
+function resizeFW(){fw.width=fw.offsetWidth;fw.height=fw.offsetHeight}
+window.addEventListener('resize',resizeFW);resizeFW();
+let fwparts=[],fwOn=false;
+const fwcols=['#ff85a1','#ffd700','#d4a8ff','#80cbc4','#fff176','#ff3d6e','#ffffff','#ff80ab'];
+ 
+function launchFW(x,y){
+  const col=fwcols[Math.floor(Math.random()*fwcols.length)];
+  for(let i=0;i<70;i++){
+    const a=(Math.PI*2/70)*i,sp=1.5+Math.random()*5;
+    fwparts.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,alpha:1,col,r:1.5+Math.random()*2.5,trail:[]});
+  }
+}
+function animFW(){
+  fwc.fillStyle='rgba(5,1,8,.18)';
+  fwc.fillRect(0,0,fw.width,fw.height);
+  fwparts.forEach(p=>{
+    p.trail.push({x:p.x,y:p.y,a:p.alpha});
+    if(p.trail.length>6)p.trail.shift();
+    p.trail.forEach((t,i)=>{
+      fwc.beginPath();fwc.arc(t.x,t.y,p.r*.4,0,Math.PI*2);
+      fwc.fillStyle=p.col;fwc.globalAlpha=t.a*(i/p.trail.length)*.5;fwc.fill();
+    });
+    p.x+=p.vx;p.y+=p.vy;p.vy+=.04;p.alpha-=.018;
+    fwc.globalAlpha=Math.max(0,p.alpha);
+    fwc.beginPath();fwc.arc(p.x,p.y,p.r,0,Math.PI*2);
+    fwc.fillStyle=p.col;fwc.fill();
+    fwc.globalAlpha=1;
+  });
+  fwparts=fwparts.filter(p=>p.alpha>0);
+  if(fwOn)requestAnimationFrame(animFW);
+}
+let fwInterval;
+new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting&&!fwOn){
+      fwOn=true;animFW();
+      fwInterval=setInterval(()=>{
+        if(!fwOn){clearInterval(fwInterval);return;}
+        launchFW(.1*fw.width+Math.random()*.8*fw.width,.05*fw.height+Math.random()*.6*fw.height);
+      },500);
+    }else if(!e.isIntersecting){fwOn=false;clearInterval(fwInterval);}
+  });
+},{threshold:.25}).observe(document.getElementById('finale'));
+ 
+/* ══ MUSIC ENGINE – External MP3 ══ */
+let musicPlaying=false;
+const audio = new Audio("music/Rum%20-%20Ôm%20Trọn%20Thương%20Yêu%20-%20Rum.mp3");
+audio.loop=true;
+audio.volume=0.7;
+
+function startMusic(){
+  audio.play().then(()=>{
+    musicPlaying=true;
+    document.getElementById("mwaves").classList.remove("paused");
+    document.getElementById("music-label").textContent="Đang phát~";
+  }).catch(()=>{});
+}
+function stopMusic(){
+  audio.pause();
+  musicPlaying=false;
+  document.getElementById("mwaves").classList.add("paused");
+  document.getElementById("music-label").textContent="Ôm Trọn Thương Yêu";
+}
+function toggleMusic(){
+  if(musicPlaying)stopMusic();
+  else startMusic();
+}
+
+/* ══ WISH CHECK ══ */
+function toggleCheck(el){
+  el.classList.toggle('done');
+  if(el.classList.contains('done'))spawnSparkles(el.getBoundingClientRect().left,el.getBoundingClientRect().top);
+}
+
+// Auto-start music on first user interaction
+let musicStarted=false;
+function tryAutoMusic(){
+  if(!musicStarted){musicStarted=true;startMusic();}
+  document.removeEventListener('click',tryAutoMusic);
+  document.removeEventListener('scroll',tryAutoMusic);
+  document.removeEventListener('keydown',tryAutoMusic);
+}
+document.addEventListener('click',tryAutoMusic);
+document.addEventListener('scroll',tryAutoMusic);
+document.addEventListener('keydown',tryAutoMusic);
+</script>
+</body>
+</html>
+ 
